@@ -147,7 +147,7 @@ mode "resize" {
 #bindsym --whole-window --border $mod+shift+button5 resize grow width 5 px or 5 ppt
 
 
-        # back to normal: Enter or Escape
+# back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -172,10 +172,10 @@ bindsym $mod+r mode "resize"
 
 # startup
 ## background image, volume control, networkmanager applet and compton compoositer
-exec "feh --bg-fill ~/Imágenes/jdd.png &"
+exec "feh --bg-fill fondook.png &"  #~/fondo.png &" ## Imágenes/jdd.png &"
 exec "pasystray &"
 exec "nm-applet  &"
-exec "compton  &"
+exec "compton &"
 
 # window
 ## font
@@ -218,6 +218,7 @@ bindsym $mod+Shift+F9 exec "vlc &"
 
 bindsym $mod+F10 exec "audacity &"
 bindsym $mod+Shift+F10 exec "pavucontrol &"
+bindsym $mod+Control+F10 exec "blueman-applet &"
 
 bindsym $mod+F11 exec "gimp &"
 bindsym $mod+Shift+F11 exec "mypaint &"
@@ -251,11 +252,14 @@ bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown, loc[k]"
 
 # HDMI selector
 mode "hdmi: [a]OC, [s]ony [o]ff" {
-  bindsym a exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1366x0 --rotate normal"; mode "default"
-  bindsym s exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1280x720 --pos 43x24 --rotate normal"; mode "default"
+  bindsym a exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1366x0 --rotate normal & pkill compton && compton --backend glx --vsync opengl-swc & feh --bg-fill fondook.png &"; mode "default "
+  bindsym s exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1280x720 --pos 43x24 --rotate normal & pkill compton && compton --backend glx --vsync opengl-swc & feh --bg-fill fondook.png &"; mode "default"
   bindsym o exec "xrandr --output HDMI-1 --off"
   bindsym Escape mode "default"
   bindsym Return mode "default"
+
+
+
 }
 
 bindsym $mod+Shift+h mode "hdmi: [a]OC, [s]ony [o]ff"
@@ -265,7 +269,7 @@ bindsym $mod+Shift+h mode "hdmi: [a]OC, [s]ony [o]ff"
 
 # floting programs
 ## note: to know program's class: open it then execute xprop in terminal, click program window and find WM_CLASS(STRING) in result
-
+for_window [class="Blueman-manager"] floating enable
 for_window [class="Mousepad"] floating enable
 for_window [class="SimpleScreenRecorder"] floating enable
 for_window [class="arandr"] floating enable

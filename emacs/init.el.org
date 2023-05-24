@@ -1,0 +1,151 @@
+
+Estas configuraciones las saqué de un post del foro de 4lib: https://discourse.cuatrolibertades.org/t/cuatro-libertades-el/26
+
+** use-package
+
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+;; use-package
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+(setq use-package-always-ensure t)
+#+end_src
+
+
+
+** Custom set variables
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(custom-set-variables
+ '(custom-enabled-themes '(leuven))
+
+ '(column-number-mode t)
+
+ '(package-selected-packages
+   '(flymake-shellcheck yasnippet-snippets yasnippet web-mode babel indent-tools openwith pdf-tools markdown-mode magit undo-tree 2048-game fill-column-indicator smartparens company which-key use-package lorem-ipsum php-mode rainbow-delimiters rainbow-identifiers rainbow-blocks rainbow-mode))
+
+ ;; distractores
+ '(menu-bar-mode nil)
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil))
+#+end_src
+
+** Custom set faces
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(custom-set-faces
+ )
+#+end_src
+
+
+** company
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(use-package company
+  :ensure t)
+(use-package smartparens
+  :ensure t)
+(use-package fill-column-indicator
+  :ensure t
+  :config
+  (setq-default fci-rule-column 80))
+
+#+end_src
+
+** yasnippet
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
+
+(add-hook 'prog-mode-hook 'yas-minor-mode)
+(require 'openwith)
+(openwith-mode t)
+(setq openwith-associations '(("\\.pdf\\'" "atril" (file))))
+#+end_src
+
+
+
+
+
+
+
+** Scroll natural con el mouse
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+#+end_src
+
+
+** zoom in/out con Control+scroll
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
+#+end_src
+
+** guarda backups en una carpeta determinada
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(add-to-list 'backup-directory-alist (cons ".*" "~/.emacs.d/backup-files-folder"))
+#+end_src
+
+** evita caidas en i3
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(when (display-graphic-p)
+  (global-unset-key (kbd "C-z")))
+#+end_src
+
+
+** easier window resizing
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+#+end_src
+
+
+** web-mode
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+)
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+#+end_src
+
+
+** orgmode cosas
+ordenar!!
+
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+;; indentar dentro de bloques 
+(setq org-src-tab-acts-natively t)
+;; orgmode-cosas
+;;(define-key org-mode-map "\M-q" 'toggle-truncate-lines)
+;;(define-key org-mode-map "\M-q" 'org-fill-paragraph)
+(add-hook 'org-mode-hook #'toggle-truncate-lines)
+(add-hook 'org-mode-hook #'toggle-word-wrap)
+;;(add-hook 'prog-mode-hook 'rainbow-blocks-mode)
+(add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+(global-set-key (kbd "M-c") 'company-complete)
+
+#+end_src
+
+
+
+
+** display battery
+#+begin_src emacs-lisp :tangle ~/.emacs.d/init.el
+(display-battery-mode 1) 
+#+end_src
+
+* Créditos&srcs
+- una config antigua que encontré en un disco duro viejo
+- https://discourse.cuatrolibertades.org/t/cuatro-libertades-el/26
+- https://emacs.stackexchange.com/questions/25044/how-do-i-set-up-indentation-to-2-spaces-in-web-mode
+- https://www.emacswiki.org/emacs/DisplayBatteryMode

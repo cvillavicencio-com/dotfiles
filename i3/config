@@ -175,11 +175,13 @@ bindsym $mod+r mode "resize"
 exec "feh --bg-fill fondook.png &"  #~/fondo.png &" ## Imágenes/jdd.png &"
 exec "pasystray &"
 exec "nm-applet  &"
-exec "compton &"
+exec "picom &"
 
 # window
 ## font
-font pango:Hack 8
+font pango:Mono 10
+# estonofunciona vertical_padding: 100
+# height 32
 
 ## no titles, no borders
 hide_edge_borders smart
@@ -252,8 +254,9 @@ bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown, loc[k]"
 
 # HDMI selector
 mode "hdmi: [a]OC, [s]ony [o]ff" {
-  bindsym a exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1366x0 --rotate normal & pkill compton && compton --backend glx --vsync opengl-swc & feh --bg-fill fondook.png &"; mode "default "
-  bindsym s exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1280x720 --pos 43x24 --rotate normal & pkill compton && compton --backend glx --vsync opengl-swc & feh --bg-fill fondook.png &"; mode "default"
+  bindsym a exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 1366x0 --rotate normal & "; mode "default"
+  bindsym s exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1280x720 --pos 43x24 --rotate normal &"; mode "default"
+  bindsym p exec "xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-1 --mode 1360x768 --pos 0x0 --rotate normal"
   bindsym o exec "xrandr --output HDMI-1 --off"
   bindsym Escape mode "default"
   bindsym Return mode "default"
